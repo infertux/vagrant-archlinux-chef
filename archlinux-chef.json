@@ -1,0 +1,27 @@
+{
+  "builders": [{
+    "type": "virtualbox-ovf",
+    "source_path": "/home/infertux/.vagrant.d/boxes/archlinux-VAGRANTSLASH-archlinux/2018.07.05/virtualbox/box.ovf",
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+    "headless": true,
+    "shutdown_command": "echo 'packer' | sudo -S shutdown -P now"
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "inline": [
+      "sudo pacman -Sy --noconfirm -u",
+      "sudo pacman -Sy --noconfirm --needed base-devel # for makepkg",
+      "curl -L -O https://aur.archlinux.org/cgit/aur.git/snapshot/chef-dk.tar.gz",
+      "tar xvf chef-dk.tar.gz",
+      "pushd chef-dk",
+      "makepkg -sirc --noconfirm",
+      "popd",
+      "rm -rf chef-dk*",
+      "sudo pacman -Sc --noconfirm",
+      "whereis chef-client",
+      "chef --version"
+    ]
+  }],
+  "post-processors": ["vagrant"]
+}
