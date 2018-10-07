@@ -1,9 +1,12 @@
 #!/bin/bash -eux
 
-cd $(dirname $0)
+cd "$(dirname $0)"
 
-vagrant box update --box archlinux/archlinux
-vagrant box prune --name archlinux/archlinux
+BOX=archlinux/archlinux
+PROVIDER=virtualbox
+
+vagrant box update --provider $PROVIDER --box $BOX || vagrant box add --provider $PROVIDER $BOX
+vagrant box prune --name $BOX
 packer-io validate archlinux-chef.json
 packer-io build archlinux-chef.json
-ls -lh packer_virtualbox-ovf_virtualbox.box
+ls -lh packer_${PROVIDER}-ovf_${PROVIDER}.box
