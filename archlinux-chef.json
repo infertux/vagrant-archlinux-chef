@@ -1,7 +1,7 @@
 {
   "builders": [{
     "type": "virtualbox-ovf",
-    "source_path": "/home/infertux/.vagrant.d/boxes/archlinux-VAGRANTSLASH-archlinux/2018.07.05/virtualbox/box.ovf",
+    "source_path": "/home/infertux/.vagrant.d/boxes/archlinux-VAGRANTSLASH-archlinux/2018.10.05/virtualbox/box.ovf",
     "ssh_username": "vagrant",
     "ssh_password": "vagrant",
     "headless": true,
